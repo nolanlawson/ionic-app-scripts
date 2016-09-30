@@ -1,6 +1,7 @@
 var ngTemplate = require('../dist/plugins/ng-template').ngTemplate;
 var nodeResolve = require('rollup-plugin-node-resolve');
 var commonjs = require('rollup-plugin-commonjs');
+var json = require('rollup-plugin-json');
 
 // https://github.com/rollup/rollup/wiki/JavaScript-API
 
@@ -34,13 +35,17 @@ module.exports = {
    */
   plugins: [
     ngTemplate(),
-    commonjs(),
+    json(),
+    commonjs({
+      include: '*',
+      extensions: ['.js', '.json']
+    }),
     nodeResolve({
       module: true,
       jsnext: true,
       main: true,
       browser: true,
-      extensions: ['.js']
+      extensions: ['.js', '.json']
     })
   ]
 
